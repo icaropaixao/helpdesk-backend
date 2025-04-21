@@ -1,22 +1,40 @@
 package com.icaropaixao.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.icaropaixao.helpdesk.domain.enums.Prioridade;
 import com.icaropaixao.helpdesk.domain.enums.Status;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Chamado {
+@Entity
+public class Chamado implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDeAbertura = LocalDate.now() ; // quando um chamado for aberto ele pega a data do momento atual
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataDeFechamento;
+
     private Prioridade prioridade;
     private Status status;
     private String titulo;
     private String observacoes;
 
+    // ASSOCIAÇÕES  (MUITOSCHAMADOS PARA 1 TECNICO - MANY TO ONE)
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     public Chamado() {

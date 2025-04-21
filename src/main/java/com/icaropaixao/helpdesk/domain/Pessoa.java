@@ -1,7 +1,10 @@
 package com.icaropaixao.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.icaropaixao.helpdesk.domain.enums.Perfil;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
@@ -9,17 +12,30 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public  abstract class Pessoa {
+@Entity
+public  abstract class Pessoa  implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     // TIPO PROTECED SIGINIFICA QUE AS CLASSES QUE HERDAREM (PESSOA) PODERAM USAR AS VARIAVEIS
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
-
     protected String nome;
+
+    @Column(unique=true) // coluna UNICA no banco
     protected String cpf;
+
+    @Column(unique=true)
     protected String email;
+
     protected String senha;
+
+    @ElementCollection(fetch = FetchType.EAGER)//quando buscar os elemntos traz os usuarios juntos
+    @CollectionTable(name = "PERFIS")
     protected Set<Integer> perfis = new HashSet<>(); // pessoa pode ser do tipo Tecnico ou Admin, por isso criar uma lista
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now(); // pega a data atual de criacao do usuario
 
     // constructors
