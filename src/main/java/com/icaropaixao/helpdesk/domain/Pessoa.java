@@ -19,8 +19,9 @@ public  abstract class Pessoa  implements Serializable {
     // TIPO PROTECED SIGINIFICA QUE AS CLASSES QUE HERDAREM (PESSOA) PODERAM USAR AS VARIAVEIS
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Integer id;
+
     protected String nome;
 
     @Column(unique=true) // coluna UNICA no banco
