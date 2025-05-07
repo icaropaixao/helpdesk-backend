@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/tecnicos")
 public class TecnicoResources {
@@ -17,7 +19,6 @@ public class TecnicoResources {
 
     @Autowired
     private TecnicoService tecnicoService;
-
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {

@@ -2,6 +2,7 @@ package com.icaropaixao.helpdesk.services;
 
 import com.icaropaixao.helpdesk.domain.Tecnico;
 import com.icaropaixao.helpdesk.repositories.TecnicoRepository;
+import com.icaropaixao.helpdesk.services.exceptions.ObjectnotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,11 @@ public class TecnicoService {
     public Tecnico findById(Integer id) {
 
         Optional<Tecnico> obj = tecnicoRepository.findById(id);
-        return obj.orElse(null); // se n encontrar retuorna null
+        return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. ID: " + id)) ; // se n encontrar retuorna null
 
 
 
     }
+
 
 }
