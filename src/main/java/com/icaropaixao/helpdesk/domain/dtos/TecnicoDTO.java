@@ -30,6 +30,7 @@ public class TecnicoDTO  implements Serializable {
 
     public TecnicoDTO() {
         super();
+        addPerfis(Perfil.CLIENTE);
     }
 
     public TecnicoDTO(Tecnico obj) {
@@ -38,9 +39,6 @@ public class TecnicoDTO  implements Serializable {
         this.cpf = obj.getCpf();
         this.email = obj.getEmail();
         this.senha = obj.getSenha();
-
-        //Obtém os perfis do objeto 'obj', transforma cada perfil no seu código,
-        // e coleta todos os códigos em um conjunto (Set) para armazenar em 'this.perfis'
         this.perfis = obj.getPerfis().stream().map( x -> x.getCodigo()).collect(Collectors.toSet());
 
         this.dataCriacao = obj.getDataCriacao();
