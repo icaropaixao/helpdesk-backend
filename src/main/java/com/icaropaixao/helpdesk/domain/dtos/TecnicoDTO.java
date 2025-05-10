@@ -8,6 +8,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.FetchType;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -18,9 +19,16 @@ public class TecnicoDTO  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected Integer id;
+    @NotNull(message = "O campo NOME é obrigatório!") // anotação para validar se o campo foi preenchido
     protected String nome;
+
+    @NotNull(message = "O campo CPF é obrigatório!")
     protected String cpf;
+
+    @NotNull(message = "O campo EMAIL é obrigatório!")
     protected String email;
+
+    @NotNull(message = "O campo SENHA é obrigatório!")
     protected String senha;
 
     protected Set<Integer> perfis = new HashSet<>();

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,8 +35,10 @@ public class TecnicoResources {
     }
 
 
-    @PostMapping                         // anotação request pois vai "Precisar" receber um tecnicoDTO no corpo da função
-    public ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO tecnicoDTO) {
+    // anotação request pois vai "Precisar" receber um tecnicoDTO no corpo da função
+    // anotação @Valid VALIDA se os campos obrigatorios foram preenchidos
+    @PostMapping
+    public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
         Tecnico newObj = tecnicoService.create(tecnicoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
         return ResponseEntity.created(uri).build();
