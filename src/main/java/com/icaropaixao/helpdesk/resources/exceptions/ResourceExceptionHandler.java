@@ -26,7 +26,7 @@ public class ResourceExceptionHandler extends RuntimeException {
 
     }
 
-    // message para violação de dados (Ddos já existentes)
+    // message para violação de dados (Dados já existentes)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationException ex, HttpServletRequest request) {
 
@@ -36,6 +36,7 @@ public class ResourceExceptionHandler extends RuntimeException {
 
     }
 
+    // message para erro de validação (Campos obrigatórios faltando)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> validationErrors(MethodArgumentNotValidException ex,
                                                           HttpServletRequest request) {

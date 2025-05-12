@@ -2,6 +2,7 @@ package com.icaropaixao.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.icaropaixao.helpdesk.domain.enums.Perfil;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public  abstract class Pessoa  implements Serializable {
 
     protected String nome;
 
+    @CPF
     @Column(unique=true) // coluna UNICA no banco
     protected String cpf;
 

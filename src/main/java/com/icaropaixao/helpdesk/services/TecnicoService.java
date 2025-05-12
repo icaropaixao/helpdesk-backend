@@ -10,6 +10,7 @@ import com.icaropaixao.helpdesk.services.exceptions.ObjectnotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +49,16 @@ public class TecnicoService {
 
     }
 
+    // atualizar um Tecnico
+    public Tecnico update(Integer id, @Valid TecnicoDTO tecnicoDTO) {
+        tecnicoDTO.setId(id);
+        Tecnico objAntigo = findById(id);
+        validaPorCpfEEmail(tecnicoDTO); // verificando se o usuario existe
+        objAntigo = new Tecnico(tecnicoDTO);
+        return tecnicoRepository.save(objAntigo);
+
+    }
+
     private void validaPorCpfEEmail(TecnicoDTO objDTO) {
 
         // VERIFICA SE O CPF JÁ ESTA EM USO
@@ -65,6 +76,10 @@ public class TecnicoService {
         }
 
     }
+
+
+
+
 
 
 }
