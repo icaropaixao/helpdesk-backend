@@ -59,6 +59,18 @@ public class TecnicoService {
 
     }
 
+    public void delete(Integer id) {
+
+        Tecnico obj = findById(id);
+
+        // caso tenha um CHAMADO DE SERVIÇO atrelado ao tecnico que esta tentando deletar, gera uma exception
+        if(obj.getChamados().size() > 0){
+
+            throw new DataIntegrityViolationException("O tecnico possui ordens de serviços e não pode ser deletado!!!!");
+        }
+        tecnicoRepository.deleteById(id);
+    }
+
     private void validaPorCpfEEmail(TecnicoDTO objDTO) {
 
         // VERIFICA SE O CPF JÁ ESTA EM USO
@@ -76,9 +88,6 @@ public class TecnicoService {
         }
 
     }
-
-
-
 
 
 

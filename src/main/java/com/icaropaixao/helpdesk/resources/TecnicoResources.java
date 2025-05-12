@@ -28,6 +28,7 @@ public class TecnicoResources {
         return ResponseEntity.ok().body(listDTO);
     }
 
+    // GET POR ID
     @GetMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
         Tecnico obj = tecnicoService.findById(id);
@@ -47,6 +48,7 @@ public class TecnicoResources {
     }
 
 
+    // UPDATE
     @PutMapping(value = "/{id}")
     public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id,@Valid @RequestBody TecnicoDTO tecnicoDTO) {
 
@@ -55,6 +57,14 @@ public class TecnicoResources {
 
     }
 
+    // DELETE
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+
+        tecnicoService.delete(id);
+        return ResponseEntity.noContent().build();
+
+    }
 
 
 }
