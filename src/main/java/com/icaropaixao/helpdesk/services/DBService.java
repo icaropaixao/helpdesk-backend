@@ -29,7 +29,7 @@ public class DBService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public void instaciaDB(){
+    public void instanciaDB(){
         //tecnico
 
         Tecnico tec1 = new Tecnico(null, "Ícaro Reis", "188.774.297-20", "icaro@mail.com", ("123"));
