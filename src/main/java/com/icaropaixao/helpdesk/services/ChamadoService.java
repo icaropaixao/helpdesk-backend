@@ -5,9 +5,11 @@ import com.icaropaixao.helpdesk.domain.Cliente;
 import com.icaropaixao.helpdesk.repositories.ChamadoRepository;
 import com.icaropaixao.helpdesk.services.exceptions.ObjectnotFoundException;
 import net.bytebuddy.implementation.auxiliary.AuxiliaryType;
+import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,5 +24,12 @@ public class ChamadoService {
 
 
     }
+
+    // FindALL
+    public List<Chamado> findAll() {
+        return chamadoRepository.findAll();
+    }
+
+
 
 }
