@@ -41,18 +41,24 @@ public class ChamadoResource {
 
     }
 
-@PostMapping
+    @PostMapping
     public ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO objDTO) {
-    Chamado obj = chamadoService.create(objDTO);
+        Chamado obj = chamadoService.create(objDTO);
 
-    URI uri = ServletUriComponentsBuilder.
-            fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 
-    return ResponseEntity.created(uri).body(new ChamadoDTO(obj));
+        return ResponseEntity.created(uri).body(new ChamadoDTO(obj));
 
 
-}
+    }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ChamadoDTO> update(@PathVariable Integer id, @Valid @RequestBody ChamadoDTO objDTO) {
+
+        Chamado newObj = chamadoService.update(id,objDTO);
+
+        return ResponseEntity.ok(new ChamadoDTO(newObj));
+    }
 
 
 }

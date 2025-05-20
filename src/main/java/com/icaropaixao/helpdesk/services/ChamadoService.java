@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class ChamadoService {
 
     public Chamado findById(Integer id) {
         Optional<Chamado> obj = chamadoRepository.findById(id);
-        return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. ID: " + id)) ; // se n encontrar retuorna null
+        return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. ID: " + id)); // se n encontrar retuorna null
 
 
     }
@@ -46,6 +47,14 @@ public class ChamadoService {
         return chamadoRepository.save(newChamado(objDTO));
     }
 
+    // UPDATE
+    public Chamado update(Integer id, @Valid ChamadoDTO objDTO) {
+        objDTO.setId(id);
+        Chamado oldObj = findById(id);
+        oldObj = newChamado(objDTO);
+         return chamadoRepository .save(oldObj);
+
+    }
 
     private Chamado newChamado(ChamadoDTO obj) {
         Tecnico tecnico = tecnicoService.findById(obj.getTecnico());
@@ -55,6 +64,13 @@ public class ChamadoService {
         if (obj.getId() != null) {
             chamado.setId(obj.getId());
         }
+
+        if (obj.getStatus().equals(2)) {
+            chamado.setDataDeFechamento(LocalDate.now());
+        }
+
+
+
         chamado.setTecnico(tecnico);
         chamado.setCliente(cliente);
         chamado.setPrioridade(Prioridade.toEnum(obj.getPrioridade()));
